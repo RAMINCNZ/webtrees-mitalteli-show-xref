@@ -21,6 +21,6 @@ Bugs & feature requests
 -------------------------
 This is a simple module and provided as is. However, if you experience any bugs you can [create a new issue on GitHub][3]. Since this is a simple module, I will be reluctant to accept feature requests.
 
- [1]: https://github.com/elysch/webtrees-media-display/releases/latest
- [2]: https://webtrees.github.io/download/
- [3]: https://github.com/elysch/webtrees-media-display/issues?state=open
+ [1]: https://github.com/elysch/webtrees-mitalteli-show-xref/releases/latest
+ [2]: https://webtrees.github.io/download
+ [3]: https://github.com/elysch/webtrees-mitalteli-show-xref/issues?state=open
