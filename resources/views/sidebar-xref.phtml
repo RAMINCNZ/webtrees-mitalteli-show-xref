@@ -1,0 +1,47 @@
+<?php
+
+declare(strict_types=1);
+
+use Fisharebest\Webtrees\Family;
+use Fisharebest\Webtrees\I18N;
+use Fisharebest\Webtrees\Individual;
+use Fisharebest\Webtrees\Services\RelationshipService;
+
+/**
+ * @var Individual $individual
+ * @var Family     $family
+ * @var string     $title
+ */
+
+?>
+
+<table class="table table-sm wt-facts-table wt-family-navigator-family">
+    <caption class="text-center wt-family-navigator-family-heading">
+        <a href="<?= e($family->url()) ?>">
+            <?= $title ?>
+        </a>
+    </caption>
+    <tbody>
+            <tr class="text-center wt-family-navigator-parent">
+
+                        <?php if ($family->canShow()) : ?>
+                            <th class="align-middle mitalteli-show-xref-label" scope="row">
+                                 <?= $family->xref() ?>
+                            </th>
+                            <td class="wt-family-navigator-name">
+                                 <?php /*
+                                 <a href="<?= e($family->url()) ?>"> <?= $family->fullName() ?> </a>
+                                       */ ?>
+                                 <?= $family->fullName() ?>
+                            </td>
+                        <?php else : ?>
+                            <th class="align-middle wt-family-navigator-label" scope="row">
+                                 <var var="I18N::translate('Private')"/>
+                            </th>
+                            <td class="wt-family-navigator-name">
+                                 <var var="I18N::translate('Private')"/>
+                            </td>
+                        <?php endif ?>
+                    </tr>
+    </tbody>
+</table>
