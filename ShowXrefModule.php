@@ -27,21 +27,26 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
      /**
      * @var string
      */
-    public const CUSTOM_AUTHOR = 'Mitalteli';
+    public const CUSTOM_AUTHOR = 'elysch';
 
     /**
      * @var string
      */
-    public const CUSTOM_VERSION = '1';
+    public const CUSTOM_VERSION = '1.0.0';
      /**
      * @var string
      */
-    public const GITHUB_REPO = '';
+    public const GITHUB_REPO = 'webtrees-mitalteli-show-xref';
 
      /**
      * @var string
      */
-    public const AUTHOR_WEBSITE = '';
+    public const AUTHOR_WEBSITE = 'https://github.com/elysch/webtrees-mitalteli-show-xref/';
+
+     /**
+     * @var string
+     */
+    public const CUSTOM_SUPPORT_URL = self::AUTHOR_WEBSITE . 'issues';
 
     /**
      * How should this module be identified in the control panel, etc.?
@@ -62,7 +67,6 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
      */
     public function description(): string
     {
-        /* I18N: Description of the “Simple Menu” module */
         return I18N::translate('A sidebar to show XREF values.');
     }
 
@@ -91,8 +95,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
      */
     public function customModuleLatestVersionUrl(): string
     {
-        #return 'https://raw.githubusercontent.com/' . self::CUSTOM_AUTHOR . '/' . self::GITHUB_REPO . '/main/latest-version.txt';
-        return '';
+        return 'https://raw.githubusercontent.com/' . self::CUSTOM_AUTHOR . '/' . self::GITHUB_REPO . '/main/latest-version.txt';
     }
 
      /**
