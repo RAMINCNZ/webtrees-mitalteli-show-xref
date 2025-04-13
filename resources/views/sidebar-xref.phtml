@@ -17,31 +17,132 @@ use Fisharebest\Webtrees\Services\RelationshipService;
 
 <table class="table table-sm wt-facts-table wt-family-navigator-family">
     <caption class="text-center wt-family-navigator-family-heading">
-        <a href="<?= e($family->url()) ?>">
+        <?php if (empty($family)) : ?>
+            <!-- the individual itself -->
             <?= $title ?>
-        </a>
+        <?php else : ?>
+            <?php if ($family->canShow()) : ?>
+                <a href="<?= e($family->url()) ?>">
+                    <?= $title ?>
+                </a> (<?= $family->xref() ?>)
+            <?php else : ?>
+                <?= $title ?> (<?= $family->xref() ?>)
+            <?php endif ?>
+        <?php endif ?>
     </caption>
     <tbody>
+        <?php if (empty($family)) : ?>
+            <!-- the individual itself -->
             <tr class="text-center wt-family-navigator-parent">
 
-                        <?php if ($family->canShow()) : ?>
-                            <th class="align-middle mitalteli-show-xref-label" scope="row">
-                                 <?= $family->xref() ?>
-                            </th>
-                            <td class="wt-family-navigator-name">
-                                 <?php /*
-                                 <a href="<?= e($family->url()) ?>"> <?= $family->fullName() ?> </a>
-                                       */ ?>
-                                 <?= $family->fullName() ?>
-                            </td>
+                <?php if ($individual->canShow()) : ?>
+                    <th class="align-middle mitalteli-show-xref-label" scope="row">
+                         <?= $individual->xref() ?>
+                            <i class="icon-selected"></i>
+                    </th>
+                    <td class="wt-family-navigator-name">
+                         <?= $individual->fullName() ?>
+                    </td>
+                <?php else : ?>
+                    <th class="align-middle wt-family-navigator-label" scope="row">
+                         <var var="I18N::translate('Private')"/>
+                    </th>
+                    <td class="wt-family-navigator-name">
+                         <var var="I18N::translate('Private')"/>
+                    </td>
+                <?php endif ?>
+            </tr>
+        <?php else : ?>
+            <?php foreach ($family->spouses() as $spouse) : ?>
+                <tr class="text-center wt-family-navigator-parent">
+                    <th class="align-middle mitalteli-show-xref-label" scope="row">
+                        <?php if ($spouse === $individual) : ?>
+                            <?= $spouse->xref() ?>
+                            <i class="icon-selected"></i>
+                        <?php elseif ($spouse->childFamilies()->isNotEmpty()) : ?>
+                        <div class="dropdown">
+                            <?= $spouse->xref() ?>
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdown-<?= e($spouse->xref()) ?>"
+                               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </a>
+    
+                            <div class="dropdown-menu wt-family-navigator-dropdown">
+                                <?php foreach ($spouse->childFamilies() as $n => $spouse_child_family) : ?>
+                                    <?php if ($n > 0) : ?>
+                                        <div class="dropdown-divider"></div>
+                                    <?php endif ?>
+                                    <div class="wt-family-navigator-dropdown-heading">
+                                        <?= $spouse_child_family->xref() ?> - <?= I18N::translate('Parents') ?>
+                                    </div>
+                                    <?php foreach ($spouse_child_family->spouses() as $parent) : ?>
+                                        <?= $parent->xref() ?> - <?= $parent->fullName() ?> <br />
+                                    <?php endforeach ?>
+                                <?php endforeach ?>
+                            </div>
+                        </div>
                         <?php else : ?>
-                            <th class="align-middle wt-family-navigator-label" scope="row">
-                                 <var var="I18N::translate('Private')"/>
-                            </th>
-                            <td class="wt-family-navigator-name">
-                                 <var var="I18N::translate('Private')"/>
-                            </td>
+                            <?= $spouse->xref() ?>
                         <?php endif ?>
-                    </tr>
+                    </th>
+    
+                    <td class="wt-family-navigator-name">
+                        <?php if ($spouse->canShow()) : ?>
+                            <?= $spouse->fullName() ?>
+                        <?php else : ?>
+                            <?= $spouse->fullName() ?>
+                        <?php endif ?>
+                    </td>
+                </tr>
+            <?php endforeach ?>
+    
+            <?php foreach ($family->children() as $child) : ?>
+                <tr class="text-center wt-family-navigator-child">
+                    <th class="align-middle mitalteli-show-xref-label" scope="row">
+                        <?php if ($child === $individual) : ?>
+                            <?= $child->xref() ?>
+                            <i class="icon-selected"></i>
+                        <?php elseif ($child->spouseFamilies()->isNotEmpty()) : ?>
+                            <div class="dropdown">
+                                <?= $child->xref() ?>
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdown-<?= e($child->xref()) ?>"
+                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                </a>
+    
+                                <div class="dropdown-menu">
+                                    <?php foreach ($child->spouseFamilies() as $n => $in_laws) : ?>
+                                        <?php if ($n > 0) : ?>
+                                            <div class="dropdown-divider"></div>
+                                        <?php endif ?>
+                                        <div class="wt-family-navigator-dropdown-heading">
+                                            <?= $in_laws->xref() ?> - <?= I18N::translate('Family') ?>
+                                        </div>
+    
+                                        <?php foreach ($in_laws->spouses() as $sibling_in_law) : ?>
+                                            <?php if ($sibling_in_law !== $child) : ?>
+                                                <?= $sibling_in_law->xref() ?> - <?= $sibling_in_law->fullName() ?>
+                                            <?php endif ?>
+                                        <?php endforeach ?>
+    
+                                        <ul>
+                                            <?php foreach ($in_laws->children() as $child_in_law) : ?>
+                                                <li>
+                                                    <?= $child_in_law->xref() ?> - <?= $child_in_law->fullName() ?>
+                                                </li>
+                                            <?php endforeach ?>
+                                        </ul>
+                                    <?php endforeach ?>
+                                </div>
+                            </div>
+                        <?php else : ?>
+                            <?= $child->xref() ?>
+                        <?php endif ?>
+                    </th>
+    
+                    <td>
+                        <?= $child->fullName() ?>
+                    </td>
+                </tr>
+            <?php endforeach ?>
+        <?php endif ?>
     </tbody>
 </table>

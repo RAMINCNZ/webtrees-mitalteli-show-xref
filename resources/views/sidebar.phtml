@@ -18,8 +18,8 @@ use Fisharebest\Webtrees\Individual;
             <div class="wt-sidebar-content wt-sidebar-family-navigator">
 <table class="table table-sm wt-facts-table wt-family-navigator-family">
     <tbody>
-                <!-- the individual itself as if it where a family -->
-                <?= view($module_basename . '::sidebar-xref', ['individual' => $individual, 'family' => $individual, 'title' => I18N::translate('Individual')]) ?>
+                <!-- the individual itself -->
+                <?= view($module_basename . '::sidebar-xref', ['individual' => $individual, 'title' => I18N::translate('Individual')]) ?>
 
                 <!-- parent families -->
                 <?php foreach ($individual->childFamilies() as $family) : ?>
