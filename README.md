@@ -21,7 +21,7 @@ Unpack the zip file and place the mitalteli-show-xref folder in the modules_v4 f
 
 Bugs & feature requests
 -------------------------
-This is a simple module and provided as is. However, if you experience any bugs you can [create a new issue on GitHub][3]. Since this is a simple module, I will be reluctant to accept feature requests.
+This is a simple module. However, if you experience any bugs you can [create a new issue on GitHub][3].
 
  [1]: https://github.com/elysch/webtrees-mitalteli-show-xref/releases/latest
  [2]: https://webtrees.github.io/download
