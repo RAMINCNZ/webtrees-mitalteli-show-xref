@@ -32,7 +32,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
     /**
      * @var string
      */
-    public const CUSTOM_VERSION = '2.0.0';
+    public const CUSTOM_VERSION = '3.0.0';
      /**
      * @var string
      */

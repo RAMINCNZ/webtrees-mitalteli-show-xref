@@ -1,4 +1,7 @@
     th.mitalteli-show-xref-label {
         width: 4em
     }
-
+    .uid {
+        font-size: x-small;
+        text-align: center;
+    }
