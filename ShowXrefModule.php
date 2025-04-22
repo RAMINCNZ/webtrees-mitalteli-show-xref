@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mitalteli\Webtrees\Module\ShowXref;
 
-#use Fisharebest\Webtrees\Auth;
 use Fisharebest\Webtrees\I18N;
 use Fisharebest\Webtrees\View;
 use Fisharebest\Webtrees\Gedcom;
@@ -15,6 +14,8 @@ use Fisharebest\Webtrees\Module\ModuleCustomInterface;
 use Fisharebest\Webtrees\Module\ModuleSidebarTrait;
 use Fisharebest\Webtrees\Module\ModuleSidebarInterface;
 use Fisharebest\Webtrees\Module\ModuleGlobalInterface;
+use Fisharebest\Webtrees\Webtrees;
+use Fisharebest\Webtrees\Services\ModuleService;
 
 /**
  * Display media objects as in webtrees 2.0
@@ -23,6 +24,16 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
 {
     use ModuleCustomTrait;
     use ModuleSidebarTrait;
+    public ModuleService $module_service;
+
+    /**
+     *
+     * @param ModuleService $module_service
+     */
+    public function __construct(ModuleService $module_service)
+    {
+        $this->module_service = $module_service;
+    }
 
      /**
      * @var string
@@ -201,5 +212,20 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
             'tree'            => $individual->tree(),
             'module_basename' => $this->name()
         ]);
+    }
+
+    /**
+     * A breaking change in webtrees 2.2.0 changes how the classes are retrieved.
+     * This function allows support for both 2.1.X and 2.2.X versions
+     * @param $class
+     * @return mixed
+     */
+    static function getClass($class)
+    {
+        if (version_compare(Webtrees::VERSION, '2.2.0', '>=')) {
+            return Registry::container()->get($class);
+        } else {
+            return app($class);
+        }
     }
 };
