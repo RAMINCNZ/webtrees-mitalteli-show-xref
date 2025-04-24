@@ -26,6 +26,10 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
 {
     use ModuleCustomTrait;
     use ModuleSidebarTrait;
+
+    private const string REGEX_UID_INTERNAL = '[0-9a-fA-F]{8}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{12}|[0-9a-fA-F]{36}|[0-9a-fA-F]{38}';
+
+
     public ModuleService $module_service;
 
     /**
@@ -45,7 +49,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
     /**
      * @var string
      */
-    public const CUSTOM_VERSION = '3.1.0';
+    public const CUSTOM_VERSION = '3.2.0';
      /**
      * @var string
      */
@@ -182,7 +186,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
     {
         return view($this->name() . '::sidebar-header', [
             'module'   => $this,
-            'with_uid' => ShowXrefModule::firstUidMethodExists(),
+            'with_uid' => true,
         ]);
     }
 
@@ -223,9 +227,29 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
             'expand_sidebar'  => $expand_sidebar,
             'individual'      => $individual,
             'tree'            => $individual->tree(),
+            'module'          => $this,
             'module_basename' => $this->name(),
-            'with_uid' => ShowXrefModule::firstUidMethodExists(),
+            'with_uid'        => true,
         ]);
+    }
+
+    /**
+     * Get the first UID for this record
+     * If the GedcomRecord has no firstUid method, takes the information directly from the record 
+     *
+     * @return string
+     */
+    public function firstUid(GedcomRecord $record): string
+    {
+        if (ShowXrefModule::firstUidMethodExists()) {
+            return $record->firstUid();
+        } else {
+            $regexTmp = '/\n1 _?UID (' . ShowXrefModule::REGEX_UID_INTERNAL . ')(:?\n|$)/';
+            if (preg_match($regexTmp, $record->gedcom(), $matches)) {
+                return $matches[1];
+            }
+        }
+        return '';
     }
 
     /**

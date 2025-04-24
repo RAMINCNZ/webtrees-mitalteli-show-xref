@@ -29,7 +29,7 @@ use Fisharebest\Webtrees\Services\RelationshipService;
             <?php else : ?>
                 <?= $title ?>
             <?php endif ?>
-            <p class='uid'>(<?= $family->xref() ?><?php if ($with_uid) : ?> - <?= $family->firstUid() ?><?php endif ?>)</p>
+            <p class='uid'>(<?= $family->xref() ?><?php if ($with_uid) : ?> - <?= $module->firstUid($family) ?><?php endif ?>)</p>
         <?php endif ?>
     </caption>
     <tbody>
@@ -44,7 +44,7 @@ use Fisharebest\Webtrees\Services\RelationshipService;
                     </th>
                     <td class="wt-family-navigator-name">
                          <?= $individual->fullName() ?>
-                         <?php if ($with_uid) { $x = $individual->firstUid(); if (!empty($x)) echo "<p class='uid'>$x</p>";}; ?>
+                         <?php if ($with_uid) { $x = $module->firstUid($individual); if (!empty($x)) echo "<p class='uid'>$x</p>";}; ?>
                     </td>
                 <?php else : ?>
                     <th class="align-middle wt-family-navigator-label" scope="row">
@@ -76,11 +76,11 @@ use Fisharebest\Webtrees\Services\RelationshipService;
                                     <?php endif ?>
                                     <div class="wt-family-navigator-dropdown-heading">
                                         <?= I18N::translate('Parents') ?> <p class='uid'><?= $spouse_child_family->xref() ?> 
-                                        <?php if ($with_uid) : ?> <br /><?= $spouse_child_family->firstUid() ?><?php endif ?></p>
+                                        <?php if ($with_uid) : ?> <br /><?= $module->firstUid($spouse_child_family) ?><?php endif ?></p>
                                     </div>
                                     <?php foreach ($spouse_child_family->spouses() as $parent) : ?>
                                         <?= $parent->fullName() ?> <p class='uid'><?= $parent->xref() ?>
-                                        <?php if ($with_uid) : ?> <br /><?= $parent->firstUid() ?><?php endif ?></p> <br />
+                                        <?php if ($with_uid) : ?> <br /><?= $module->firstUid($parent) ?><?php endif ?></p> <br />
                                     <?php endforeach ?>
                                 <?php endforeach ?>
                             </div>
@@ -99,7 +99,7 @@ use Fisharebest\Webtrees\Services\RelationshipService;
                             <?= $spouse->fullName() ?>
                         <?php endif ?>
 
-                        <?php if ($with_uid) { $x = $spouse->firstUid(); if (!empty($x)) echo "<p class='uid'>$x</p>";}; ?>
+                        <?php if ($with_uid) { $x = $module->firstUid($spouse); if (!empty($x)) echo "<p class='uid'>$x</p>";}; ?>
                     </td>
                 </tr>
             <?php endforeach ?>
@@ -124,13 +124,13 @@ use Fisharebest\Webtrees\Services\RelationshipService;
                                         <?php endif ?>
                                         <div class="wt-family-navigator-dropdown-heading">
                                             <?= I18N::translate('Family') ?> <p class='uid'><?= $in_laws->xref() ?>
-                                            <?php if ($with_uid) : ?> <br /><?= $in_laws->firstUid() ?><?php endif ?></p>
+                                            <?php if ($with_uid) : ?> <br /><?= $module->firstUid($in_laws) ?><?php endif ?></p>
                                         </div>
     
                                         <?php foreach ($in_laws->spouses() as $sibling_in_law) : ?>
                                             <?php if ($sibling_in_law !== $child) : ?>
                                                 <?= $sibling_in_law->fullName() ?> <p class='uid'><?= $sibling_in_law->xref() ?>
-                                                <?php if ($with_uid) : ?> <br /><?= $sibling_in_law->firstUid() ?><?php endif ?></p>
+                                                <?php if ($with_uid) : ?> <br /><?= $module->firstUid($sibling_in_law) ?><?php endif ?></p>
                                             <?php endif ?>
                                         <?php endforeach ?>
     
@@ -138,7 +138,7 @@ use Fisharebest\Webtrees\Services\RelationshipService;
                                             <?php foreach ($in_laws->children() as $child_in_law) : ?>
                                                 <li>
                                                     <?= $child_in_law->fullName() ?> <p class='uid'><?= $child_in_law->xref() ?>
-                                                    <?php if ($with_uid) : ?> <br /><?= $child_in_law->firstUid() ?><?php endif ?></p>
+                                                    <?php if ($with_uid) : ?> <br /><?= $module->firstUid($child_in_law) ?><?php endif ?></p>
                                                 </li>
                                             <?php endforeach ?>
                                         </ul>
@@ -152,7 +152,7 @@ use Fisharebest\Webtrees\Services\RelationshipService;
     
                     <td>
                         <?= $child->fullName() ?>
-                        <?php if ($with_uid) { $x = $child->firstUid(); if (!empty($x)) echo "<p class='uid'>$x</p>";}; ?>
+                        <?php if ($with_uid) { $x = $module->firstUid($child); if (!empty($x)) echo "<p class='uid'>$x</p>";}; ?>
                     </td>
                 </tr>
             <?php endforeach ?>

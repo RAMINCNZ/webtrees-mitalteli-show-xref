@@ -25,12 +25,13 @@ use Fisharebest\Webtrees\Individual;
         <div class="wt-sidebar-content wt-sidebar-family-navigator">
             <table class="table table-sm wt-facts-table wt-family-navigator-family">
                 <tbody>
-                    <?php if (! $with_uid) : ?>
-                        <span class="uid"><?= I18N::translate("This version of webtrees does not support the inclusion of UID information.") ?></span>
-                    <?php endif ?>
+                    <?php /* if (! $with_uid) : ?>   # HOPE TO IMPLEMENT CONFIGURATION INTERFACE TO DEFINE IF SHOWN XREF, UID OR BOTH
+                        <span class="uid"><?= I18N::translate("UID information is disabled.") ?></span>
+                    <?php endif */ ?>
     
                     <!-- the individual itself -->
                     <?= view($module_basename . '::sidebar-xref', [
+                        'module'     => $module,
                         'individual' => $individual, 
                         'title'      => I18N::translate('Individual'), 
                         'with_uid'   => $with_uid,
@@ -39,6 +40,7 @@ use Fisharebest\Webtrees\Individual;
                     <!-- parent families -->
                     <?php foreach ($individual->childFamilies() as $family) : ?>
                         <?= view($module_basename . '::sidebar-xref', [
+                            'module'     => $module,
                             'individual' => $individual, 
                             'family'     => $family, 
                             'title'      => $individual->getChildFamilyLabel($family), 
@@ -49,6 +51,7 @@ use Fisharebest\Webtrees\Individual;
                     <!-- step parents -->
                     <?php foreach ($individual->childStepFamilies() as $family) : ?>
                         <?= view($module_basename . '::sidebar-xref', [
+                            'module'     => $module,
                             'individual' => $individual, 
                             'family'     => $family, 
                             'title'      => $individual->getStepFamilyLabel($family), 
@@ -59,6 +62,7 @@ use Fisharebest\Webtrees\Individual;
                     <!-- spouse and children -->
                     <?php foreach ($individual->spouseFamilies() as $family) : ?>
                         <?= view($module_basename . '::sidebar-xref', [
+                            'module'     => $module,
                             'individual' => $individual, 
                             'family'     => $family, 
                             'title'      => $individual->getSpouseFamilyLabel($family), 
@@ -69,6 +73,7 @@ use Fisharebest\Webtrees\Individual;
                     <!-- step children -->
                     <?php foreach ($individual->spouseStepFamilies() as $family) : ?>
                         <?= view($module_basename . '::sidebar-xref', [
+                            'module'     => $module,
                             'individual' => $individual, 
                             'family' => $family, 
                             'title' => I18N::translate('Step child'), 
