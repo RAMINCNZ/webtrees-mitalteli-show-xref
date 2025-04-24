@@ -28,7 +28,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
     use ModuleSidebarTrait;
 
     private bool $with_uid = true;
-    private const string REGEX_UID_INTERNAL = '[0-9a-fA-F]{8}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{12}|[0-9a-fA-F]{36}|[0-9a-fA-F]{38}';
+    private const REGEX_UID_INTERNAL = '[0-9a-fA-F]{8}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{12}|[0-9a-fA-F]{36}|[0-9a-fA-F]{38}';
 
 
     public ModuleService $module_service;
