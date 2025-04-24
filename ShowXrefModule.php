@@ -27,6 +27,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
     use ModuleCustomTrait;
     use ModuleSidebarTrait;
 
+    private bool $with_uid = true;
     private const string REGEX_UID_INTERNAL = '[0-9a-fA-F]{8}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{12}|[0-9a-fA-F]{36}|[0-9a-fA-F]{38}';
 
 
@@ -84,7 +85,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
     {
 
         /* I18N: Name of a module */
-        return I18N::translate('XREF values module.');
+        return I18N::translate('XREF and UID values module.');
     }
 
     /**
@@ -94,7 +95,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
      */
     public function description(): string
     {
-        return I18N::translate('A sidebar to show XREF values.');
+        return I18N::translate('A sidebar to show XREF and UID values.');
     }
 
     /**
@@ -186,7 +187,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
     {
         return view($this->name() . '::sidebar-header', [
             'module'   => $this,
-            'with_uid' => true,
+            'with_uid' => $with_uid,
         ]);
     }
 
@@ -229,7 +230,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
             'tree'            => $individual->tree(),
             'module'          => $this,
             'module_basename' => $this->name(),
-            'with_uid'        => true,
+            'with_uid'        => $with_uid,
         ]);
     }
 

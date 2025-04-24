@@ -17,7 +17,9 @@ You can add a reference to other record within a text or note field writing some
 
 **It's important to note that the XREF's can be changed, so the Webtrees user should use them at his/her own risk.**
 
-NOTE: When adding reference links from one record to another, I recommend to always include arbitrary text that permits to identify what information is being referred to, just in case the identification string gets removed/replaced in the destination and the link stops working.
+NOTE 1: When adding reference links from one record to another, I recommend to always include arbitrary text that permits to identify what information is being referred to, just in case the identification string gets removed/replaced in the destination and the link stops working.
+
+NOTE 2: If you feel that it slows down too much, you can disable the UID information by editing ShowXrefModule.php file and change "$with_uid = true;" to "$with_uid = false;"
 
 Installation & upgrading
 ------------------------
