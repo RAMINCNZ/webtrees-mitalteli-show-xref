@@ -68,7 +68,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
      */
     static function firstUidMethodExists(): bool
     {
-        return (bool) method_exists("GedcomRecord::class", "firstUid");
+        return (bool) method_exists(GedcomRecord::class, "firstUid");
     }
 
     /**
