@@ -50,7 +50,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
     /**
      * @var string
      */
-    public const CUSTOM_VERSION = '3.2.0';
+    public const CUSTOM_VERSION = '3.2.1';
      /**
      * @var string
      */
@@ -187,7 +187,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
     {
         return view($this->name() . '::sidebar-header', [
             'module'   => $this,
-            'with_uid' => $with_uid,
+            'with_uid' => $this->with_uid,
         ]);
     }
 
@@ -230,7 +230,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
             'tree'            => $individual->tree(),
             'module'          => $this,
             'module_basename' => $this->name(),
-            'with_uid'        => $with_uid,
+            'with_uid'        => $this->with_uid,
         ]);
     }
 
