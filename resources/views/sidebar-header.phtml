@@ -3,7 +3,11 @@
 use Fisharebest\Webtrees\I18N;
 use Fisharebest\Webtrees\View;
 
+/*
+ * @var ShowXrefModule $this,
+ * @var bool           $with_uid
+ */
+
 ?>
 
-<span class="col"><?= I18N::translate('XREF and UID information') ?></span>
-
+<span class="col"><?= I18N::translate('XREF ' . ( $with_uid ? 'and UID ' : '') . 'information') ?></span>

@@ -5,52 +5,87 @@ use Fisharebest\Webtrees\I18N;
 use Fisharebest\Webtrees\View;
 use Fisharebest\Webtrees\Individual;
 
+/*
+ * @var bool       $expand_sidebar
+ * @var Individual $individual
+ * @var Tree       $tree
+ * @var string     $module_basename
+ * @var bool       $with_uid
+ */
 ?>
 
 <div id="mitalteli-ShowXrefs">
     <!-- SHOW XREF INFORMATION -->
-        <?php
-                $expanded = "true";
-                $show = " show";
-            $id = 'collapse-' . Uuid::uuid4()->toString();
-        ?>
-        <div class="show-xref-area mb-3">
-            <div class="wt-sidebar-content wt-sidebar-family-navigator">
-<table class="table table-sm wt-facts-table wt-family-navigator-family">
-    <tbody>
-                <!-- the individual itself -->
-                <?= view($module_basename . '::sidebar-xref', ['individual' => $individual, 'title' => I18N::translate('Individual')]) ?>
-
-                <!-- parent families -->
-                <?php foreach ($individual->childFamilies() as $family) : ?>
-                    <?= view($module_basename . '::sidebar-xref', ['individual' => $individual, 'family' => $family, 'title' => $individual->getChildFamilyLabel($family)]) ?>
-                <?php endforeach ?>
-            
-                <!-- step parents -->
-                <?php foreach ($individual->childStepFamilies() as $family) : ?>
-                    <?= view($module_basename . '::sidebar-xref', ['individual' => $individual, 'family' => $family, 'title' => $individual->getStepFamilyLabel($family)]) ?>
-                <?php endforeach ?>
-            
-                <!-- spouse and children -->
-                <?php foreach ($individual->spouseFamilies() as $family) : ?>
-                    <?= view($module_basename . '::sidebar-xref', ['individual' => $individual, 'family' => $family, 'title' => $individual->getSpouseFamilyLabel($family)]) ?>
-                <?php endforeach ?>
-            
-                <!-- step children -->
-                <?php foreach ($individual->spouseStepFamilies() as $family) : ?>
-                    <?= view($module_basename . '::sidebar-xref', ['individual' => $individual, 'family' => $family, 'title' => I18N::translate('Step child')]) ?>
-                <?php endforeach ?>
-    </tbody>
-</table>
-            </div>
+    <?php
+        $expanded = "true";
+        $show = " show";
+        $id = 'collapse-' . Uuid::uuid4()->toString();
+    ?>
+    <div class="show-xref-area mb-3">
+        <div class="wt-sidebar-content wt-sidebar-family-navigator">
+            <table class="table table-sm wt-facts-table wt-family-navigator-family">
+                <tbody>
+                    <?php if (! $with_uid) : ?>
+                        <span class="uid"><?= I18N::translate("This version of webtrees does not support the inclusion of UID information.") ?></span>
+                    <?php endif ?>
+    
+                    <!-- the individual itself -->
+                    <?= view($module_basename . '::sidebar-xref', [
+                        'individual' => $individual, 
+                        'title'      => I18N::translate('Individual'), 
+                        'with_uid'   => $with_uid,
+                    ]) ?>
+    
+                    <!-- parent families -->
+                    <?php foreach ($individual->childFamilies() as $family) : ?>
+                        <?= view($module_basename . '::sidebar-xref', [
+                            'individual' => $individual, 
+                            'family'     => $family, 
+                            'title'      => $individual->getChildFamilyLabel($family), 
+                            'with_uid'   => $with_uid,
+                        ]) ?>
+                    <?php endforeach ?>
+                
+                    <!-- step parents -->
+                    <?php foreach ($individual->childStepFamilies() as $family) : ?>
+                        <?= view($module_basename . '::sidebar-xref', [
+                            'individual' => $individual, 
+                            'family'     => $family, 
+                            'title'      => $individual->getStepFamilyLabel($family), 
+                            'with_uid'   => $with_uid,
+                        ]) ?>
+                    <?php endforeach ?>
+                
+                    <!-- spouse and children -->
+                    <?php foreach ($individual->spouseFamilies() as $family) : ?>
+                        <?= view($module_basename . '::sidebar-xref', [
+                            'individual' => $individual, 
+                            'family'     => $family, 
+                            'title'      => $individual->getSpouseFamilyLabel($family), 
+                            'with_uid'   => $with_uid,
+                        ]) ?>
+                    <?php endforeach ?>
+                
+                    <!-- step children -->
+                    <?php foreach ($individual->spouseStepFamilies() as $family) : ?>
+                        <?= view($module_basename . '::sidebar-xref', [
+                            'individual' => $individual, 
+                            'family' => $family, 
+                            'title' => I18N::translate('Step child'), 
+                            'with_uid' => $with_uid
+                        ]) ?>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
         </div>
+    </div>
 </div>
 
 <?php if ($expand_sidebar) : ?>
-<?php View::push('javascript') ?>
-<script>
-    $("#sidebar-content-family_nav").removeClass("show");
-    $("#sidebar-content-_mitalteli-show-xrefs_").addClass("show");
-</script>
-<?php View::endpush() ?>
+    <?php View::push('javascript') ?>
+    <script>
+        $("#sidebar-content-family_nav").removeClass("show");
+        $("#sidebar-content-_mitalteli-show-xrefs_").addClass("show");
+    </script>
+    <?php View::endpush() ?>
 <?php endif; ?>

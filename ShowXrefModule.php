@@ -7,6 +7,7 @@ namespace Mitalteli\Webtrees\Module\ShowXref;
 use Fisharebest\Webtrees\I18N;
 use Fisharebest\Webtrees\View;
 use Fisharebest\Webtrees\Gedcom;
+use Fisharebest\Webtrees\GedcomRecord;
 use Fisharebest\Webtrees\Individual;
 use Fisharebest\Webtrees\Module\AbstractModule;
 use Fisharebest\Webtrees\Module\ModuleCustomTrait;
@@ -16,6 +17,7 @@ use Fisharebest\Webtrees\Module\ModuleSidebarInterface;
 use Fisharebest\Webtrees\Module\ModuleGlobalInterface;
 use Fisharebest\Webtrees\Webtrees;
 use Fisharebest\Webtrees\Services\ModuleService;
+use Fisharebest\Webtrees\Registry;
 
 /**
  * Display media objects as in webtrees 2.0
@@ -43,7 +45,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
     /**
      * @var string
      */
-    public const CUSTOM_VERSION = '3.0.0';
+    public const CUSTOM_VERSION = '3.1.0';
      /**
      * @var string
      */
@@ -58,6 +60,16 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
      * @var string
      */
     public const CUSTOM_SUPPORT_URL = self::AUTHOR_WEBSITE . 'issues';
+
+    /**
+     * Method to evaluate if exists method firstUID is defined in GedcomRecord class
+     *
+     * @return boolean
+     */
+    static function firstUidMethodExists(): bool
+    {
+        return (bool) method_exists("GedcomRecord::class", "firstUid");
+    }
 
     /**
      * How should this module be identified in the control panel, etc.?
@@ -170,6 +182,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
     {
         return view($this->name() . '::sidebar-header', [
             'module'   => $this,
+            'with_uid' => ShowXrefModule::firstUidMethodExists(),
         ]);
     }
 
@@ -210,7 +223,8 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
             'expand_sidebar'  => $expand_sidebar,
             'individual'      => $individual,
             'tree'            => $individual->tree(),
-            'module_basename' => $this->name()
+            'module_basename' => $this->name(),
+            'with_uid' => ShowXrefModule::firstUidMethodExists(),
         ]);
     }
 
