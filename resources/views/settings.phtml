@@ -1,0 +1,39 @@
+<?php
+
+use Fisharebest\Webtrees\I18N;
+use Fisharebest\Webtrees\View;
+use Fisharebest\Webtrees\Http\RequestHandlers\ControlPanel;
+
+?>
+
+<?= view('components/breadcrumbs', ['links' => [route(ControlPanel::class) => I18N::translate('Control panel'), $title]]) ?>
+
+<div class="d-flex justify-content-between align-items-baseline">
+    <h1><?= $title ?></h1>
+    <?php if (isset($_COOKIE["FRL_PAGE"])): ?>
+    <div><a href="<?= $_COOKIE["FRL_PAGE"] ?>"><?= I18N::translate('back to the last individual page') ?></a></div>
+    <?php endif ?>
+</div>
+
+<div class="jc-fancy-research-links mb-5">
+
+    <form method="post">
+        <?= csrf_field() ?>
+        <input type="hidden" name="save" id="save" value="1">
+        <div class="alert alert-secondary row mb-3 justify-content-between m-0">
+            <!-- EXPAND THE SIDEBAR CONTENT -->
+            <div>
+                <?= view('components/checkbox', ['label' => I18N::translate('Expand this module\'s sidebar content'), 'name' => 'expand-sidebar', 'checked' => (bool) $expand_sidebar]) ?>
+                <p class="small text-muted"><?= I18N::translate('If checked, this module\'s sidebar content will expand while the sidebar Family navigator will collapse if the user has the role of editor or higher.') ?></p>
+            </div>
+            <!-- OPEN LINKS IN NEW TAB -->
+            <div>
+                <?= view('components/checkbox', ['label' => I18N::translate('Include UID values'), 'name' => 'with-uid', 'checked' => (bool) $with_uid]) ?>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">
+            <?= view('icons/save') ?>
+            <?= I18N::translate('save') ?>
+        </button>
+    </form>
+</div>

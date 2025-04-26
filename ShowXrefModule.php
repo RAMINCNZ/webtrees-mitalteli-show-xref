@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mitalteli\Webtrees\Module\ShowXref;
 
+use Fisharebest\Webtrees\Auth;
 use Fisharebest\Webtrees\I18N;
 use Fisharebest\Webtrees\View;
 use Fisharebest\Webtrees\Gedcom;
@@ -15,6 +16,11 @@ use Fisharebest\Webtrees\Module\ModuleCustomInterface;
 use Fisharebest\Webtrees\Module\ModuleSidebarTrait;
 use Fisharebest\Webtrees\Module\ModuleSidebarInterface;
 use Fisharebest\Webtrees\Module\ModuleGlobalInterface;
+use Fisharebest\Webtrees\Module\ModuleConfigTrait;
+use Fisharebest\Webtrees\Module\ModuleConfigInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Fisharebest\Webtrees\FlashMessages;
 use Fisharebest\Webtrees\Webtrees;
 use Fisharebest\Webtrees\Services\ModuleService;
 use Fisharebest\Webtrees\Registry;
@@ -23,14 +29,19 @@ use Fisharebest\Localization\Translation;
 /**
  * Display media objects as in webtrees 2.0
  */
-class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, ModuleSidebarInterface, ModuleGlobalInterface
+class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, ModuleSidebarInterface, ModuleGlobalInterface, ModuleConfigInterface
 {
     use ModuleCustomTrait;
     use ModuleSidebarTrait;
+    use ModuleConfigTrait;
 
-    private bool $with_uid = true;
+    public const CUSTOM_AUTHOR = 'elysch';
+    public const CUSTOM_VERSION = '3.4.1';
+    public const GITHUB_REPO = 'webtrees-mitalteli-show-xref';
+    public const AUTHOR_WEBSITE = 'https://github.com/elysch/webtrees-mitalteli-show-xref/';
+    public const CUSTOM_SUPPORT_URL = self::AUTHOR_WEBSITE . 'issues';
+
     private const REGEX_UID_INTERNAL = '[0-9a-fA-F]{8}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{12}|[0-9a-fA-F]{36}|[0-9a-fA-F]{38}';
-
 
     public ModuleService $module_service;
 
@@ -42,30 +53,6 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
     {
         $this->module_service = $module_service;
     }
-
-     /**
-     * @var string
-     */
-    public const CUSTOM_AUTHOR = 'elysch';
-
-    /**
-     * @var string
-     */
-    public const CUSTOM_VERSION = '3.3.1';
-     /**
-     * @var string
-     */
-    public const GITHUB_REPO = 'webtrees-mitalteli-show-xref';
-
-     /**
-     * @var string
-     */
-    public const AUTHOR_WEBSITE = 'https://github.com/elysch/webtrees-mitalteli-show-xref/';
-
-     /**
-     * @var string
-     */
-    public const CUSTOM_SUPPORT_URL = self::AUTHOR_WEBSITE . 'issues';
 
     /**
      * Method to evaluate if exists method firstUID is defined in GedcomRecord class
@@ -202,7 +189,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
     {
         return view($this->name() . '::sidebar-header', [
             'module'   => $this,
-            'with_uid' => $this->with_uid,
+            'with_uid' => $this->getPreference('with-uid', '1'),
         ]);
     }
 
@@ -237,7 +224,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
      */
     public function getSidebarContent(Individual $individual): string
     {
-        $expand_sidebar     = (bool) $this->getPreference('expand-sidebar');
+        $expand_sidebar     = (bool) $this->getPreference('expand-sidebar') && Auth::isEditor($individual->tree());
 
         return view($this->name() . '::sidebar', [
             'expand_sidebar'  => $expand_sidebar,
@@ -245,8 +232,48 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
             'tree'            => $individual->tree(),
             'module'          => $this,
             'module_basename' => $this->name(),
-            'with_uid'        => $this->with_uid,
+            'with_uid'        => $this->getPreference('with-uid', '1'),
         ]);
+    }
+
+    /**
+     * Show user preference interface.
+     *
+     * @param ServerRequestInterface $request
+     *
+     * @return ResponseInterface
+     */
+    public function getAdminAction(): ResponseInterface
+    {
+        $this->layout = 'layouts/administration';
+
+        return $this->viewResponse($this->name() . '::settings', [
+            'expand_sidebar' => $this->getPreference('expand-sidebar'),
+            'with_uid'       => $this->getPreference('with-uid', '1'),
+            'title'          => $this->title(),
+        ]);
+    }
+
+    /**
+     * Save the user preference.
+     *
+     * @param ServerRequestInterface $request
+     *
+     * @return ResponseInterface
+     */
+    public function postAdminAction(ServerRequestInterface $request): ResponseInterface
+    {
+        $params = (array) $request->getParsedBody();
+
+        if ($params['save'] === '1') {
+            $this->setPreference('expand-sidebar', $params['expand-sidebar'] ?? '0');
+            $this->setPreference('with-uid', $params['with-uid'] ?? '0');
+
+            $message = I18N::translate('The preferences for the module “%s” have been updated.', $this->title());
+            FlashMessages::addMessage($message, 'success');
+        }
+
+        return redirect($this->getConfigLink());
     }
 
     /**
