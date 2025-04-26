@@ -13,7 +13,7 @@ Description
 ------------
 This module adds a Sidebar to the Individual view that shows the XREF and UID (identification strings) for him/her, for all his/her families and the families childs.
 
-You can add a reference to other record within a text or note field writing something like "@<XREF>@" (where <XREF> should be substituted by an existent identification string). After webtrees versions 2.1.22 or 2.2.1 it's probable that will be implemented a way to include references using UID identification strings.
+You can add a reference to other record within a text or note field writing something like "@&lt;XREF&gt;@" (where &lt;XREF&gt; should be substituted by an existent identification string). After webtrees versions 2.1.22 or 2.2.1 it's probable that will be implemented a way to include references using UID identification strings.
 
 **It's important to note that the XREF's can be changed, so the Webtrees user should use them at his/her own risk.**
 
