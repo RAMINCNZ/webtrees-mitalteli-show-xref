@@ -22,13 +22,7 @@ use Fisharebest\Webtrees\Services\RelationshipService;
             <!-- the individual itself -->
             <?= $title ?>
         <?php else : ?>
-            <?php if ($family->canShow()) : ?>
-                <a href="<?= e($family->url()) ?>">
-                    <?= $title ?>
-                </a>
-            <?php else : ?>
-                <?= $title ?>
-            <?php endif ?>
+            <?= $title ?>
             <p class='uid'>(<?= $family->xref() ?><?php if ($with_uid) : ?> - <?= $module->firstUid($family) ?><?php endif ?>)</p>
         <?php endif ?>
     </caption>
@@ -91,14 +85,7 @@ use Fisharebest\Webtrees\Services\RelationshipService;
                     </th>
     
                     <td class="wt-family-navigator-name">
-                        <?php if ($spouse->canShow()) : ?>
-                            <a href="<?= e($spouse->url()) ?>">
-                            <?= $spouse->fullName() ?>
-                            </a>
-                        <?php else : ?>
-                            <?= $spouse->fullName() ?>
-                        <?php endif ?>
-
+                        <?= $spouse->fullName() ?>
                         <?php if ($with_uid) { $x = $module->firstUid($spouse); if (!empty($x)) echo "<p class='uid'>$x</p>";}; ?>
                     </td>
                 </tr>

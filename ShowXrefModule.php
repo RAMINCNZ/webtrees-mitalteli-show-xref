@@ -18,6 +18,7 @@ use Fisharebest\Webtrees\Module\ModuleGlobalInterface;
 use Fisharebest\Webtrees\Webtrees;
 use Fisharebest\Webtrees\Services\ModuleService;
 use Fisharebest\Webtrees\Registry;
+use Fisharebest\Localization\Translation;
 
 /**
  * Display media objects as in webtrees 2.0
@@ -50,7 +51,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
     /**
      * @var string
      */
-    public const CUSTOM_VERSION = '3.2.1';
+    public const CUSTOM_VERSION = '3.3.1';
      /**
      * @var string
      */
@@ -152,6 +153,20 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
     public function resourcesFolder(): string
     {
         return __DIR__ . '/resources/';
+    }
+
+    /**
+     * Additional translations for module.
+     *
+     * @param string $language
+     *
+     * @return string[]
+     */
+    public function customTranslations(string $language): array
+    {
+        $file = $this->resourcesFolder() . 'lang/' . $language . '.php';
+
+        return file_exists($file) ? (new Translation($file))->asArray() : [];
     }
 
     /**
