@@ -10,4 +10,8 @@ use Fisharebest\Webtrees\View;
 
 ?>
 
-<span class="col"><?= I18N::translate('XREF ' . ( $with_uid ? 'and UID ' : '') . 'information') ?></span>
+<?php if ($with_uid) : ?>
+    <span class="col"><?= I18N::translate('XREF and UID information') ?></span>
+<?php else : ?>
+    <span class="col"><?= I18N::translate('XREF information') ?></span>
+<?php endif ?>

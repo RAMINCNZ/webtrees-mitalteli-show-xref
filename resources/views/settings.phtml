@@ -30,6 +30,13 @@ use Fisharebest\Webtrees\Http\RequestHandlers\ControlPanel;
             <div>
                 <?= view('components/checkbox', ['label' => I18N::translate('Include UID values'), 'name' => 'with-uid', 'checked' => (bool) $with_uid]) ?>
             </div>
+
+            <label class="col-sm-3 col-form-label wt-page-options-label" for="sidebar-order">
+                <?= I18N::translate('Sidebar order') ?>
+            </label>
+            <div>
+                <?= view('components/select-number', ['label' => I18N::translate('Sidebar order'), 'name' => 'sidebar-order', 'selected' => $sidebar_order, 'options' => range(-500, 500)]) ?>
+            </div>
         </div>
         <button type="submit" class="btn btn-primary">
             <?= view('icons/save') ?>

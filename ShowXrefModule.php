@@ -36,7 +36,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
     use ModuleConfigTrait;
 
     public const CUSTOM_AUTHOR = 'elysch';
-    public const CUSTOM_VERSION = '3.4.1';
+    public const CUSTOM_VERSION = '3.5.0';
     public const GITHUB_REPO = 'webtrees-mitalteli-show-xref';
     public const AUTHOR_WEBSITE = 'https://github.com/elysch/webtrees-mitalteli-show-xref/';
     public const CUSTOM_SUPPORT_URL = self::AUTHOR_WEBSITE . 'issues';
@@ -200,7 +200,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
      */
     public function defaultSidebarOrder(): int
     {
-        return 10;
+        return (int) $this->getPreference('sidebar-order', '10');
     }
 
     /**
@@ -250,6 +250,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
         return $this->viewResponse($this->name() . '::settings', [
             'expand_sidebar' => $this->getPreference('expand-sidebar'),
             'with_uid'       => $this->getPreference('with-uid', '1'),
+            'sidebar_order'  => $this->getPreference('sidebar-order', '10'),
             'title'          => $this->title(),
         ]);
     }
@@ -268,6 +269,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
         if ($params['save'] === '1') {
             $this->setPreference('expand-sidebar', $params['expand-sidebar'] ?? '0');
             $this->setPreference('with-uid', $params['with-uid'] ?? '0');
+            $this->setPreference('sidebar-order', $params['sidebar-order'] ?? '10');
 
             $message = I18N::translate('The preferences for the module “%s” have been updated.', $this->title());
             FlashMessages::addMessage($message, 'success');
