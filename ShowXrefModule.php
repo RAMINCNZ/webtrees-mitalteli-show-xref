@@ -36,7 +36,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
     use ModuleConfigTrait;
 
     public const CUSTOM_AUTHOR = 'elysch';
-    public const CUSTOM_VERSION = '3.5.0';
+    public const CUSTOM_VERSION = '3.6.0';
     public const GITHUB_REPO = 'webtrees-mitalteli-show-xref';
     public const AUTHOR_WEBSITE = 'https://github.com/elysch/webtrees-mitalteli-show-xref/';
     public const CUSTOM_SUPPORT_URL = self::AUTHOR_WEBSITE . 'issues';
@@ -190,6 +190,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
         return view($this->name() . '::sidebar-header', [
             'module'   => $this,
             'with_uid' => $this->getPreference('with-uid', '1'),
+            'is_admin' => Auth::isAdmin(),
         ]);
     }
 
