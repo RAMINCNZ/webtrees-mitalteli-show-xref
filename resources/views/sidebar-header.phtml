@@ -17,7 +17,7 @@ use Fisharebest\Webtrees\View;
 <?php endif ?>
 
 <?php if ($is_admin): ?>
-<span class="jc-config-link"><a href="<?= e($module->getConfigLink()) ?>" title="<?= I18N::translate('Preferences') ?>">
+<span class="mitalteli-show-xref-config-link"><a href="<?= e($module->getConfigLink()) ?>" title="<?= I18N::translate('Preferences') ?>">
     <?= view('icons/preferences') ?>
 </a></span>
 
@@ -41,11 +41,11 @@ use Fisharebest\Webtrees\View;
     }
 
     // delete any old cookie
-    deleteCookie("FRL_PAGE")
+    deleteCookie("MSHXREF_PAGE")
 
     // set a new cookie when clicking the config link
-    $('.jc-config-link a').on('click', function(e) {
-        setCookie("FRL_PAGE", window.location.href);
+    $('.mitalteli-show-xref-config-link a').on('click', function(e) {
+        setCookie("MSHXREF_PAGE", window.location.href);
     });
 </script>
 <?php View::endpush() ?>

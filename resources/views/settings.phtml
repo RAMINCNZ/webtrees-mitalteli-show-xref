@@ -10,12 +10,12 @@ use Fisharebest\Webtrees\Http\RequestHandlers\ControlPanel;
 
 <div class="d-flex justify-content-between align-items-baseline">
     <h1><?= $title ?></h1>
-    <?php if (isset($_COOKIE["FRL_PAGE"])): ?>
-    <div><a href="<?= $_COOKIE["FRL_PAGE"] ?>"><?= I18N::translate('back to the last individual page') ?></a></div>
+    <?php if (isset($_COOKIE["MSHXREF_PAGE"])): ?>
+    <div><a href="<?= $_COOKIE["MSHXREF_PAGE"] ?>"><?= I18N::translate('back to the last individual page') ?></a></div>
     <?php endif ?>
 </div>
 
-<div class="jc-fancy-research-links mb-5">
+<div class="mitalteli-show-xref mb-5">
 
     <form method="post">
         <?= csrf_field() ?>
