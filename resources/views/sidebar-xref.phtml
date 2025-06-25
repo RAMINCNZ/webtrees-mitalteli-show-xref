@@ -12,11 +12,12 @@ use Fisharebest\Webtrees\Services\RelationshipService;
  * @var Family     $family
  * @var string     $title
  * @var boolean    $with_uid
+ * @var boolean    $with_css
  */
 
 ?>
 
-<table class="table table-sm wt-facts-table wt-family-navigator-family">
+<table class="table table-sm wt-facts-table wt-family-navigator-family mitalteli-show-xref-table">
     <caption class="text-center wt-family-navigator-family-heading">
         <?php if (empty($family)) : ?>
             <!-- the individual itself -->
@@ -29,8 +30,11 @@ use Fisharebest\Webtrees\Services\RelationshipService;
     <tbody>
         <?php if (empty($family)) : ?>
             <!-- the individual itself -->
+			<?php if (empty($with_css)) : ?>
+			<tr class="text-center wt-family-navigator-parent">
+			<?php else : ?>
             <tr class="text-center wt-family-navigator-parent wt-sex-<?= strtolower($individual->sex()) ?>">
-
+			<?php endif ?>
                 <?php if ($individual->canShow()) : ?>
                     <th class="align-middle mitalteli-show-xref-label" scope="row">
                          <?= $individual->xref() ?>
@@ -51,7 +55,11 @@ use Fisharebest\Webtrees\Services\RelationshipService;
             </tr>
         <?php else : ?>
             <?php foreach ($family->spouses() as $spouse) : ?>
+				<?php if (empty($with_css)) : ?>
+                <tr class="text-center wt-family-navigator-parent">
+				<?php else : ?>
                 <tr class="text-center wt-family-navigator-parent wt-sex-<?= strtolower($spouse->sex()) ?>">
+				<?php endif ?>
                     <th class="align-middle mitalteli-show-xref-label" scope="row">
                         <?php if ($spouse === $individual) : ?>
                             <?= $spouse->xref() ?>
@@ -92,7 +100,11 @@ use Fisharebest\Webtrees\Services\RelationshipService;
             <?php endforeach ?>
     
             <?php foreach ($family->children() as $child) : ?>
+				<?php if (empty($with_css)) : ?>
+                <tr class="text-center wt-family-navigator-child">
+				<?php else : ?>
                 <tr class="text-center wt-family-navigator-child wt-sex-<?= strtolower($child->sex()) ?>">
+				<?php endif ?>
                     <th class="align-middle mitalteli-show-xref-label" scope="row">
                         <?php if ($child === $individual) : ?>
                             <?= $child->xref() ?>
