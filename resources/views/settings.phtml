@@ -30,6 +30,10 @@ use Fisharebest\Webtrees\Http\RequestHandlers\ControlPanel;
             <div>
                 <?= view('components/checkbox', ['label' => I18N::translate('Include UID values'), 'name' => 'with-uid', 'checked' => (bool) $with_uid]) ?>
             </div>
+            <!-- USE CSS COLOURS FOR BACKGROUND -->
+            <div>
+                <?= view('components/checkbox', ['label' => I18N::translate('Enable/Disable CSS Gender Background Colors'), 'name' => 'with-css', 'checked' => (bool) $with_css]) ?>
+            </div>
 
             <label class="col-sm-3 col-form-label wt-page-options-label" for="sidebar-order">
                 <?= I18N::translate('Sidebar order') ?>
