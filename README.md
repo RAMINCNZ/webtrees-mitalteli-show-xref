@@ -22,6 +22,8 @@ NOTE 1: When adding reference links from one record to another, I recommend to a
 
 NOTE 2: You can hide the UID values in the module's configuration in webtree's Control panel.
 
+NOTE 3: You can Enable/Disable WebTrees Gender background Colours for this module in the module's configuration in webtree's Control panel. (the actual colours are set in WebTrees CSS and or Themes CSS NOT in this module)
+
 Installation & upgrading
 ------------------------
 Unpack the zip file and place the mitalteli-show-xref folder in the modules_v4 folder of webtrees. Upload the newly added folder to your server. It is activated by default and will work immediately. No additional configuration is required.
