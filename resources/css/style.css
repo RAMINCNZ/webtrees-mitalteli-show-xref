@@ -1,7 +1,10 @@
     th.mitalteli-show-xref-label {
-        width: 4em
+        width: 4em;
     }
     .uid {
         font-size: x-small;
         text-align: center;
     }
+	.show-xref-notset {
+		color: red;
+	}
