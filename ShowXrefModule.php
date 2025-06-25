@@ -190,6 +190,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
         return view($this->name() . '::sidebar-header', [
             'module'   => $this,
             'with_uid' => $this->getPreference('with-uid', '1'),
+            'with_css' => $this->getPreference('with-css', '1'),
             'is_admin' => Auth::isAdmin(),
         ]);
     }
@@ -234,6 +235,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
             'module'          => $this,
             'module_basename' => $this->name(),
             'with_uid'        => $this->getPreference('with-uid', '1'),
+            'with_css'        => $this->getPreference('with-css', '1'),
         ]);
     }
 
@@ -251,6 +253,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
         return $this->viewResponse($this->name() . '::settings', [
             'expand_sidebar' => $this->getPreference('expand-sidebar'),
             'with_uid'       => $this->getPreference('with-uid', '1'),
+            'with_css'       => $this->getPreference('with-css', '1'),
             'sidebar_order'  => $this->getPreference('sidebar-order', '10'),
             'title'          => $this->title(),
         ]);
@@ -270,6 +273,7 @@ class ShowXrefModule extends AbstractModule implements ModuleCustomInterface, Mo
         if ($params['save'] === '1') {
             $this->setPreference('expand-sidebar', $params['expand-sidebar'] ?? '0');
             $this->setPreference('with-uid', $params['with-uid'] ?? '0');
+            $this->setPreference('with-css', $params['with-css'] ?? '0');
             $this->setPreference('sidebar-order', $params['sidebar-order'] ?? '10');
 
             $message = I18N::translate('The preferences for the module “%s” have been updated.', $this->title());
