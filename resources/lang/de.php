@@ -12,12 +12,14 @@
     "Include UID values" => 'UID-Werte einbeziehen', // resources/views/settings.phtml
     'Sidebar order' => 'Seitenleistenreihenfolge', // resources/views/settings.phtml
     "save" => 'sichern', // resources/views/settings.phtml
+    "Enable/Disable CSS Gender Background Colors" => 'Aktivieren/Deaktivieren von CSS-Hintergrundfarben für das Geschlecht', // resources/views/settings.phtml
     "XREF and UID information" => 'XREF- und UID-Werte', // resources/views/sidebar-header.phtml
     "XREF information" => 'XREF Werte', // resources/views/sidebar-header.phtml - Line 13 - title of sidebar
     #'Private' => 'Private', // resources/views/sidebar-xref.phtml
     #'Parents' => 'Parents', // resources/views/sidebar-xref.phtml
     #'Family' => 'Family', // resources/views/sidebar-xref.phtml
     "UID information is disabled." => 'Anzeige von UID ist deaktiviert.', // resources/views/sidebar.phtml - Line 13 - title of sidebar
+    "CSS gender background colors are disabled." => 'CSS-Hintergrundfarben für das Geschlecht sind deaktiviert.', // resources/views/sidebar.phtml - Line 33
     #'Individual' => 'Individual', // resources/views/sidebar.phtml
     #'Step children' => 'Step children', // resources/views/sidebar.phtml
 
