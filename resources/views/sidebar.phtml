@@ -11,6 +11,7 @@ use Fisharebest\Webtrees\Individual;
  * @var Tree       $tree
  * @var string     $module_basename
  * @var bool       $with_uid
+ * @var bool       $with_css
  */
 ?>
 
@@ -23,18 +24,22 @@ use Fisharebest\Webtrees\Individual;
     ?>
     <div class="show-xref-area mb-3">
         <div class="wt-sidebar-content wt-sidebar-family-navigator">
-            <table class="table table-sm wt-facts-table wt-family-navigator-family">
-                <tbody>
+            <div class="show-xref-settings">
                     <?php if (! $with_uid) : ?>  <!-- # HOPE TO IMPLEMENT CONFIGURATION INTERFACE TO DEFINE IF SHOWN XREF, UID OR BOTH -->
-                        <span class="uid"><?= I18N::translate("UID information is disabled.") ?></span>
+                        <span class="show-xref-notset"><?= I18N::translate("UID information is disabled.") ?></span>
                     <?php endif ?>
-    
+                     <?php if (! $with_css) : ?>  <!-- # CSS Classes not Set -->
+                        <span class="show-xref-notset"><br><?= I18N::translate("CSS gender background colors are disabled.") ?></span>
+                    <?php endif ?>
+			</div>
+   
                     <!-- the individual itself -->
                     <?= view($module_basename . '::sidebar-xref', [
                         'module'     => $module,
                         'individual' => $individual, 
                         'title'      => I18N::translate('Individual'), 
                         'with_uid'   => $with_uid,
+                        'with_css'   => $with_css,
                     ]) ?>
     
                     <!-- parent families -->
@@ -45,6 +50,7 @@ use Fisharebest\Webtrees\Individual;
                             'family'     => $family, 
                             'title'      => $individual->getChildFamilyLabel($family), 
                             'with_uid'   => $with_uid,
+							'with_css'   => $with_css,
                         ]) ?>
                     <?php endforeach ?>
                 
@@ -56,6 +62,7 @@ use Fisharebest\Webtrees\Individual;
                             'family'     => $family, 
                             'title'      => $individual->getStepFamilyLabel($family), 
                             'with_uid'   => $with_uid,
+							'with_css'   => $with_css,
                         ]) ?>
                     <?php endforeach ?>
                 
@@ -67,6 +74,7 @@ use Fisharebest\Webtrees\Individual;
                             'family'     => $family, 
                             'title'      => $individual->getSpouseFamilyLabel($family), 
                             'with_uid'   => $with_uid,
+							'with_css'   => $with_css,
                         ]) ?>
                     <?php endforeach ?>
                 
@@ -77,11 +85,10 @@ use Fisharebest\Webtrees\Individual;
                             'individual' => $individual, 
                             'family' => $family, 
                             'title' => I18N::translate('Step children'), 
-                            'with_uid' => $with_uid
+                            'with_uid' => $with_uid,
+							'with_css'   => $with_css
                         ]) ?>
                     <?php endforeach ?>
-                </tbody>
-            </table>
         </div>
     </div>
 </div>
