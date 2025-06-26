@@ -19,7 +19,7 @@
     #'Parents' => 'Parents', // resources/views/sidebar-xref.phtml
     #'Family' => 'Family', // resources/views/sidebar-xref.phtml
     "UID information is disabled." => 'Anzeige von UID ist deaktiviert.', // resources/views/sidebar.phtml - Line 13 - title of sidebar
-    "CSS gender background colors are disabled." => 'CSS-Hintergrundfarben für das Geschlecht sind deaktiviert.', // resources/views/sidebar.phtml - Line 33
+    "Gender background colors are disabled." => 'Hintergrundfarben für das Geschlecht sind deaktiviert.', // resources/views/sidebar.phtml - Line 33
     #'Individual' => 'Individual', // resources/views/sidebar.phtml
     #'Step children' => 'Step children', // resources/views/sidebar.phtml
 

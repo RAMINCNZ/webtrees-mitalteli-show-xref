@@ -12,8 +12,8 @@
     "Include UID values" => 'Incluir valores UID', // resources/views/settings.phtml
     'Sidebar order' => 'Orden de la barra lateral', // resources/views/settings.phtml
     "save" => 'guardar', // resources/views/settings.phtml
-    "Enable/Disable CSS Gender Background Colors" => 'Activar/desactivar los colores de fondo del género CSS', // resources/views/settings.phtml
-    "CSS gender background colors are disabled." => 'Los colores de fondo del género CSS están desactivados.', // resources/views/sidebar.phtml - Line 33
+    "Enable/Disable CSS Gender Background Colors" => 'Activar/desactivar los CSS para colores de fondo según género', // resources/views/settings.phtml
+    "Gender background colors are disabled." => 'Los colores de fondo por género están desactivados.', // resources/views/sidebar.phtml - Line 33
     "XREF and UID information" => 'Información de valores XREF y UID', // resources/views/sidebar.phtml - Line 13 - title of sidebar
     "XREF information" => 'Información de valores XREF', // resources/views/sidebar-header.phtml - Line 13 - title of sidebar
     #'Private' => 'Private', // resources/views/sidebar-xref.phtml
